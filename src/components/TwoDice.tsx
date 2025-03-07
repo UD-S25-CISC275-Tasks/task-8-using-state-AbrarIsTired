@@ -1,37 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-/**
- * Here is a helper function you *must* use to "roll" your die.
- * The function uses the builtin `random` function of the `Math`
- * module (which returns a random decimal between 0 up until 1) in order
- * to produce a random integer between 1 and 6 (inclusive).
- */
 export function d6(): number {
     return 1 + Math.floor(Math.random() * 6);
 }
 
 export function TwoDice(): React.JSX.Element {
-    const [leftDie, setLeftDie] = useState<number>(() => {
-        const initial = d6();
-        if (initial !== 1) {
-            return initial;
-        } else {
-            return (initial % 6) + 1;
-        }
-    });
-
+    const [leftDie, setLeftDie] = useState<number>(() => d6());
     const [rightDie, setRightDie] = useState<number>(() => {
-        const initial = d6();
-        if (initial !== 1 && initial !== leftDie) {
-            return initial;
-        } else {
-            if (initial === 1) {
-                return (initial % 6) + 1;
-            } else {
-                return ((initial + 1) % 6) + 1;
-            }
+        let initial = d6();
+        while (initial === leftDie) {
+            initial = d6();
         }
+        return initial;
     });
 
     const rollLeftDie = () => {
@@ -42,7 +23,6 @@ export function TwoDice(): React.JSX.Element {
         setRightDie(d6());
     };
 
-    // Determine game state
     let gameMessage = "";
     if (leftDie === rightDie) {
         if (leftDie === 1) {

@@ -29,7 +29,7 @@ export function CycleHoliday(): React.JSX.Element {
             "Thanksgiving"
         ];
         const currentIndex = holidays.indexOf(current);
-        return holidays[(currentIndex + 1) % holidays.length];
+        return holidays[(currentIndex + 1) % holidays.length]; //Loops through list of holidays
     };
 
     // Yearly order function
@@ -42,19 +42,23 @@ export function CycleHoliday(): React.JSX.Element {
             "Eid-Ul-Adha"
         ];
         const currentIndex = holidays.indexOf(current);
-        return holidays[(currentIndex + 1) % holidays.length];
+        return holidays[(currentIndex + 1) % holidays.length]; //Loops through list of holidays
     };
 
+    //Setting the state to New Years. First in the holdays list
     const [currentHoliday, setCurrentHoliday] = useState<Holiday>("New Years");
 
+    //Sets the current state to the next Holiday by Alphabet
     const advanceByAlphabet = () => {
         setCurrentHoliday(getNextHolidayAlphabetically(currentHoliday));
     };
 
+    //Sets the current state to the next year's Holidays
     const advanceByYear = () => {
         setCurrentHoliday(getNextHolidayByYear(currentHoliday));
     };
 
+    //More buttons to cycle through. Had to use the Tome, Online + AI to put everything together. It's kinda like an f-string in Python
     return (
         <div className="text-center space-y-4">
             <div className="text-2xl">
